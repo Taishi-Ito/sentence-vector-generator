@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import sentence_vector_generator.generator as generator
 from fastapi.responses import JSONResponse
 
 class Sentence(BaseModel):
-    text: str
+    text: str = Field(min_length=1)
 
 app = FastAPI()
 
