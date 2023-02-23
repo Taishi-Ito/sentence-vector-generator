@@ -8,7 +8,7 @@ class Sentence(BaseModel):
 
 app = FastAPI()
 
-@app.post("/convert")
-async def execute(sentence: Sentence):
+@app.post("/generate")
+async def generate(sentence: Sentence):
     vector_json = generator.generate_vector(sentence.text)
     return JSONResponse(content={"encoded_text": vector_json})
