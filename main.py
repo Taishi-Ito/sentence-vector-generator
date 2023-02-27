@@ -10,5 +10,9 @@ app = FastAPI()
 
 @app.post("/generate")
 async def generate(sentence: Sentence):
-    vector_json = generator.generate_vector(sentence.text)
-    return JSONResponse(status_code=status.HTTP_200_OK, content={"encoded_text": vector_json})
+    try:
+        vector_json = generator.generate_vector(sentence.text)
+    except Exception as e:
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"error": str(e)})
+    else:
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"encoded_text": vector_json})
